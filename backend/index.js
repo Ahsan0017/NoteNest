@@ -5,10 +5,10 @@ require('dotenv').config(); // Load environment variables
 
 connectToMongo(); // Connect to DB
 const app = express(); // 'app' defined here
-const port = process.env.PORT || 5000; // <-- Yeh line missing hai
+const port = process.env.PORT || 5000; // <-- Yeh line yahan add karo
 
 // Iske baad aap 'app' aur 'port' ka use kar sakte hain
-const allowedOrigins = ["http://localhost:3000", "https://notenest-frontend.vercel.app"];
+const allowedOrigins = ["http://localhost:3000", "https://notenest-frontend-git-main-ahsan0017s-projects.vercel.app"];
 
 app.use(cors({
   origin: function (origin, callback) {
