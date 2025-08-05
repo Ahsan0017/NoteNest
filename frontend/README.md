@@ -72,3 +72,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 # NoteNest
  0ce4d5933618752d3b24eb4c65f150eb0da3779d
+
+
+ $env:NODE_OPTIONS="--openssl-legacy-provider"
+npm start
+
