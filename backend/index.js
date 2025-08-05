@@ -1,21 +1,23 @@
 const connectToMongo = require('./db');
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config(); // Load environment variables
+require('dotenv').config(); // Load environment variables from .env file
 
-connectToMongo(); // Connect to DB
+connectToMongo(); // Connect to MongoDB Atlas
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000; // Define port to avoid 'port is not defined' error
 
-// Iske baad aap 'app' aur 'port' ka use kar sakte hain
+// This is the Vercel frontend URL that was causing CORS issues.
+// We are now allowing access from both localhost and the Vercel app.
 const allowedOrigins = ["http://localhost:3000", "https://notenest-frontend-git-main-ahsan0017s-projects.vercel.app"];
 
-// Purana 'cors' code hatao aur yeh naya, simple code add karo
+// Fixed CORS configuration to prevent server crash.
+// This will simply block unauthorized requests without throwing an error.
 app.use(cors({ origin: allowedOrigins }));
 
 app.use(express.json());
 
-// Routes
+// Available Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/notes', require('./routes/notes'));
 
