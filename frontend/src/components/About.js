@@ -23,7 +23,7 @@ const About = () => {
         <div className="col-md-4">
           <i className="fas fa-mobile-alt fa-2x text-info mb-2"></i>
           <h5>Responsive</h5>
-          <p>Use it on mobile, tablet, or desktop — iNotebook works everywhere!</p>
+          <p>Use it on mobile, tablet, or desktop — NoteNest works everywhere!</p>
         </div>
         <div className="col-md-4">
           <i className="fas fa-cloud-upload-alt fa-2x text-warning mb-2"></i>
