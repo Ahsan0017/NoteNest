@@ -11,7 +11,9 @@ router.post('/createuser', async (req, res) => {
   let success = false;
   try {
     let user = await User.findOne({ email: req.body.email });
-    if (user) return res.status(400).json({ success, error: 'User already exists' });
+    if (user) {
+      return res.status(400).json({ success, error: 'User already exists' });
+    }
 
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(req.body.password, salt);
@@ -24,10 +26,10 @@ router.post('/createuser', async (req, res) => {
     const data = { user: { id: user.id } };
     const authtoken = jwt.sign(data, JWT_SECRET);
     success = true;
-    res.json({ success, authtoken, name: user.name });
+    res.status(201).json({ success, authtoken, name: user.name });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
 
@@ -37,10 +39,14 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ success, error: 'Invalid credentials' });
+    if (!user) {
+      return res.status(400).json({ success, error: 'Invalid credentials' });
+    }
 
     const passwordCompare = await bcrypt.compare(password, user.password);
-    if (!passwordCompare) return res.status(400).json({ success, error: 'Invalid credentials' });
+    if (!passwordCompare) {
+      return res.status(400).json({ success, error: 'Invalid credentials' });
+    }
 
     const data = { user: { id: user.id } };
     const authtoken = jwt.sign(data, JWT_SECRET);
@@ -48,7 +54,7 @@ router.post('/login', async (req, res) => {
     res.json({ success, authtoken, name: user.name });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
 
@@ -56,10 +62,10 @@ router.post('/login', async (req, res) => {
 router.post('/getuser', fetchuser, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
-    res.send(user);
+    res.json({ success: true, user });
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Internal Server Error");
+    res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });
 
