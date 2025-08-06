@@ -8,7 +8,7 @@ const About = () => {
         <div className="col-md-10 text-center">
           <h2 className="fw-bold text-primary">About NoteNest</h2>
           <p className="lead">
-            iNotebook is a modern and secure note-taking app built using React for frontend and Node.js for backend. It helps you store, edit, and manage your notes easily and securely.
+            NoteNest is a modern and secure note-taking app built using React for frontend and Node.js for backend. It helps you store, edit, and manage your notes easily and securely.
           </p>
         </div>
       </div>
