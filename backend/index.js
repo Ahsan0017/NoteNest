@@ -9,7 +9,10 @@ const port = process.env.PORT || 5000; // Define port to avoid 'port is not defi
 
 // This is the Vercel frontend URL that was causing CORS issues.
 // We are now allowing access from both localhost and the Vercel app.
-const allowedOrigins = ["http://localhost:3000", "https://notenest-frontend-git-main-ahsan0017s-projects.vercel.app"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://notenest-frontend-lswr7poqm-ahsan0017s-projects.vercel.app"
+];
 
 // Fixed CORS configuration to prevent server crash.
 // This will simply block unauthorized requests without throwing an error.
