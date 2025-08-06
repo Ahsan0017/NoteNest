@@ -15,12 +15,12 @@ const Login = () => {
     try {
       const response = await fetch("https://notenest-backend-yn27.onrender.com/api/auth/login", {
         method: 'POST',
-        headers: {
+        headers: {   
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(credentials)
       });
-
+// test
       // Check if the response is valid JSON before parsing
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.indexOf("application/json") !== -1) {
