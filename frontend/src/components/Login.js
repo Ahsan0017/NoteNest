@@ -21,13 +21,20 @@ const Login = () => {
         body: JSON.stringify(credentials)
       });
 
-      const json = await response.json();
-      if (json.success) {
-        localStorage.setItem('token', json.authtoken);
-        await getUser();
-        navigate("/");
+      // Check if the response is valid JSON before parsing
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const json = await response.json();
+        if (json.success) {
+          localStorage.setItem('token', json.authtoken);
+          await getUser();
+          navigate("/");
+        } else {
+          setError("Invalid email or password");
+        }
       } else {
-        setError("Invalid email or password");
+        // Handle non-JSON response, which often indicates a server error
+        setError("Something went wrong with the server. Please try again.");
       }
     } catch (err) {
       console.error("Login error:", err);
@@ -74,7 +81,6 @@ const Login = () => {
             />
           </div>
 
-          {/* 👇 Inline error below password input */}
           {error && (
             <div className="text-danger mb-3" style={{ fontSize: "14px" }}>
               {error}
